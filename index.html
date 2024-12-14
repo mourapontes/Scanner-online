@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicativo de Scanner</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Scanner de Documentos</h1>
+        
+        <!-- Contêiner de Botões -->
+        <div class="controls">
+            <button id="startCamera">Iniciar Câmera</button>
+            <button id="stopCamera" disabled>Parar Câmera</button>
+            <button id="captureImage" disabled>Capturar Imagem</button>
+            <button id="generatePDF" disabled>Gerar PDF</button>
+            <button id="clearImages">Limpar Imagens</button>
+        </div>
+        
+        <!-- Área de Câmera -->
+        <div class="camera-container">
+            <video id="camera" width="600" height="400" autoplay></video>
+            <canvas id="canvas" style="display: none;"></canvas>
+            <div class="grid"></div>
+        </div>
+
+        <!-- Imagens Capturadas -->
+        <div id="imagesList"></div>
+    </div>
+
+    <!-- Rodapé com o nome do desenvolvedor -->
+    <footer>
+        <p>By: Rangel M Pontes - Analista e Desenvolvedor de Sistemas</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
