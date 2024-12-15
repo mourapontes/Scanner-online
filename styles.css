@@ -8,16 +8,17 @@ body {
     margin: 0;
     background-color: #f4f4f9;
     flex-direction: column;
+    overflow: hidden; /* Evita rolagem na página */
 }
 
 /* Título do Aplicativo */
 #appTitle {
     font-family: 'Roboto', sans-serif;
-    font-size: 36px;
+    font-size: 32px; /* Reduzido para melhor ajuste em telas pequenas */
     font-weight: bold;
     color: #3f51b5;
     text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     text-align: center;
     letter-spacing: 2px;
     padding: 10px;
@@ -34,7 +35,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-direction: column; /* Organiza os elementos verticalmente */
+    flex-direction: column;
 }
 
 /* Contêiner da câmera e botões lado a lado */
@@ -42,33 +43,34 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    flex-wrap: wrap; /* Permite a adaptação responsiva */
+    flex-wrap: wrap;
 }
 
 /* Contêiner de botões */
 .controls {
     position: relative;
     display: flex;
-    flex-wrap: wrap; /* Permite quebra de linha em telas menores */
-    justify-content: center; /* Centraliza os botões */
-    gap: 10px; /* Espaçamento uniforme entre os botões */
-    margin-top: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px; /* Espaçamento uniforme entre os botões */
+    margin-top: 10px;
 }
 
 /* Estilo dos botões */
 button {
-    flex: 1 1 auto; /* Botões ajustáveis em tamanho */
-    padding: 10px 20px;
-    font-size: 16px;
+    flex: 1 1 auto;
+    padding: 8px 15px; /* Reduzido para botões menores */
+    font-size: 14px; /* Ajustado para melhor responsividade */
     border: none;
     cursor: pointer;
     border-radius: 5px;
-    transition: background-color 0.3s, transform 0.3s; /* Efeito de transição */
-    min-width: 100px; /* Define uma largura mínima para os botões */
+    transition: background-color 0.3s, transform 0.3s;
+    min-width: 80px; /* Largura mínima */
+    max-width: 120px; /* Largura máxima para evitar botões muito largos */
 }
 
 button:hover {
-    transform: scale(1.05); /* Efeito de aumento de tamanho ao passar o mouse */
+    transform: scale(1.05);
 }
 
 button:disabled {
@@ -76,6 +78,7 @@ button:disabled {
     cursor: not-allowed;
 }
 
+/* Botões específicos */
 #startCamera {
     background-color: #4CAF50;
     color: white;
@@ -106,7 +109,7 @@ button:disabled {
     position: relative;
     border: 2px solid #000;
     width: 100%;
-    max-width: 420px; /* Diminuído em 30% de 600px para 420px */
+    max-width: 400px; /* Diminuído para acomodar em telas menores */
     background-color: #000;
     padding: 10px;
     display: flex;
@@ -142,7 +145,7 @@ button:disabled {
 
 #imagesList img {
     margin: 10px;
-    width: 150px;
+    width: 120px; /* Reduzido para imagens menores */
     height: auto;
 }
 
@@ -154,8 +157,8 @@ button:disabled {
     text-align: center;
     background-color: #333;
     color: white;
-    padding: 10px;
-    font-size: 14px;
+    padding: 8px;
+    font-size: 12px; /* Ajustado para dispositivos menores */
 }
 
 /* Ajuste para garantir que a interface seja bem responsiva */
@@ -165,33 +168,33 @@ button:disabled {
     }
 
     #camera {
-        width: 90%; /* A câmera ocupa 90% da largura disponível */
+        width: 90%; 
     }
 
     .controls {
-        margin-top: 20px; /* Espaçamento adicional para botões */
+        margin-top: 10px;
     }
 
     .camera-and-controls {
-        flex-direction: column; /* Organiza a câmera e os botões na vertical */
+        flex-direction: column;
     }
 
     .footer {
-        font-size: 12px; /* Reduz o tamanho da fonte no rodapé para dispositivos menores */
+        font-size: 10px;
     }
 }
 
 @media (max-width: 480px) {
     #appTitle {
-        font-size: 28px; /* Ajusta o tamanho do título para telas muito pequenas */
+        font-size: 24px; 
     }
 
     button {
-        width: 100%; /* Botões ocupam toda a largura em dispositivos menores */
-        font-size: 14px; /* Reduz o tamanho da fonte nos botões */
+        width: 100%; 
+        font-size: 12px; 
     }
 
     .camera-container {
-        max-width: 90%; /* A câmera ocupa 90% da largura da tela em dispositivos pequenos */
+        max-width: 90%;
     }
 }
