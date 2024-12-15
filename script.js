@@ -1,37 +1,55 @@
 const startCameraButton = document.getElementById('startCamera');
 const stopCameraButton = document.getElementById('stopCamera');
 const captureImageButton = document.getElementById('captureImage');
+const switchCameraButton = document.getElementById('switchCamera');
 const generatePDFButton = document.getElementById('generatePDF');
 const clearImagesButton = document.getElementById('clearImages');
 const cameraElement = document.getElementById('camera');
 const imagesList = document.getElementById('imagesList');
 let mediaStream;
+let currentFacingMode = 'environment'; // Modo padrão: câmera traseira
 let capturedImages = [];
 
 // Inicia a câmera
 startCameraButton.addEventListener('click', () => {
-    navigator.mediaDevices.getUserMedia({ video: true })
+    startCamera(currentFacingMode);
+});
+
+function startCamera(facingMode) {
+    navigator.mediaDevices.getUserMedia({ video: { facingMode } })
         .then((stream) => {
             mediaStream = stream;
             cameraElement.srcObject = stream;
             startCameraButton.disabled = true;
             stopCameraButton.disabled = false;
             captureImageButton.disabled = false;
+            switchCameraButton.disabled = false;
         })
         .catch(err => {
             console.error('Erro ao acessar a câmera:', err);
         });
-});
+}
 
-// Para a câmera e mantém as imagens capturadas
+// Para a câmera
 stopCameraButton.addEventListener('click', () => {
-    mediaStream.getTracks().forEach(track => track.stop());
-    cameraElement.srcObject = null;
+    if (mediaStream) {
+        mediaStream.getTracks().forEach(track => track.stop());
+        cameraElement.srcObject = null;
+    }
     startCameraButton.disabled = false;
     stopCameraButton.disabled = true;
     captureImageButton.disabled = true;
-    // Não desabilita o botão de gerar PDF ao desligar a câmera
+    switchCameraButton.disabled = true;
     generatePDFButton.disabled = capturedImages.length === 0;
+});
+
+// Troca entre câmera frontal e traseira
+switchCameraButton.addEventListener('click', () => {
+    currentFacingMode = currentFacingMode === 'environment' ? 'user' : 'environment';
+    if (mediaStream) {
+        mediaStream.getTracks().forEach(track => track.stop());
+    }
+    startCamera(currentFacingMode);
 });
 
 // Captura uma imagem da câmera
