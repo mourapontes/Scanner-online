@@ -76,14 +76,50 @@ captureImageButton.addEventListener('click', () => {
 generatePDFButton.addEventListener('click', () => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    
-    capturedImages.forEach((image, index) => {
-        if (index > 0) doc.addPage(); // Adiciona uma nova página após a primeira
-        doc.addImage(image, 'PNG', 10, 10, 180, 160); // Adiciona a imagem capturada
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    const promises = capturedImages.map((image, index) => {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.src = image;
+
+            img.onload = () => {
+                const imgAspectRatio = img.width / img.height;
+                const pageAspectRatio = pageWidth / pageHeight;
+
+                let imgScaledWidth, imgScaledHeight;
+
+                if (imgAspectRatio > pageAspectRatio) {
+                    // A imagem é mais larga que a página
+                    imgScaledWidth = pageWidth;
+                    imgScaledHeight = pageWidth / imgAspectRatio;
+                } else {
+                    // A imagem é mais alta que a página
+                    imgScaledHeight = pageHeight;
+                    imgScaledWidth = pageHeight * imgAspectRatio;
+                }
+
+                const posX = (pageWidth - imgScaledWidth) / 2; // Centraliza horizontalmente
+                const posY = (pageHeight - imgScaledHeight) / 2; // Centraliza verticalmente
+
+                if (index > 0) doc.addPage(); // Adiciona uma nova página após a primeira
+                doc.addImage(image, 'PNG', posX, posY, imgScaledWidth, imgScaledHeight); // Adiciona a imagem escalada
+
+                resolve(); // Resolve a Promise quando a imagem é processada
+            };
+
+            img.onerror = () => {
+                console.error('Erro ao carregar a imagem para o PDF');
+                resolve(); // Resolve a Promise mesmo em caso de erro
+            };
+        });
     });
 
-    // Salva o PDF
-    doc.save('images.pdf');
+    // Aguarda todas as imagens serem processadas
+    Promise.all(promises).then(() => {
+        doc.save('images.pdf'); // Salva o PDF após todas as imagens serem carregadas
+    });
 });
 
 // Limpa as imagens capturadas
