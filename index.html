@@ -15,15 +15,15 @@
             <button id="startCamera">Iniciar Câmera</button>
             <button id="stopCamera" disabled>Parar Câmera</button>
             <button id="captureImage" disabled>Capturar Imagem</button>
+            <button id="switchCamera" disabled>Trocar Câmera</button>
             <button id="generatePDF" disabled>Gerar PDF</button>
-            <button id="clearImages">Limpar Imagens</button>
+            <button id="clearImages" disabled>Limpar Imagens</button>
         </div>
         
         <!-- Área de Câmera -->
         <div class="camera-container">
             <video id="camera" width="600" height="400" autoplay></video>
             <canvas id="canvas" style="display: none;"></canvas>
-            <div class="grid"></div>
         </div>
 
         <!-- Imagens Capturadas -->
@@ -35,6 +35,7 @@
         <p>By: Rangel M Pontes - Analista e Desenvolvedor de Sistemas</p>
     </footer>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
